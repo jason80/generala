@@ -153,19 +153,27 @@ public class NewGameDialog {
 	
 	private void newPlayer() {
 		TextInputDialog dialog = new TextInputDialog();
-		dialog.setContentText("Nombre del jugador:");
+		dialog.setContentText("Nombre del jugador (10 car.):");
 		dialog.showAndWait();
 		
 		String result = dialog.getResult();
 		
 		if (result == null) return;
-		if ("".equals(result.trim())) return;
+		result = result.trim();
+		if ("".equals(result)) return;
 		
 		if (playerExists(result)) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setContentText("El jugador " + result.toUpperCase().trim() + " ya existe.");
 			alert.showAndWait();
 			return ;
+		}
+		
+		if (result.length() > 10) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setContentText("El nombre no debe superar los 10 caracteres.");
+			alert.showAndWait();
+			return;
 		}
 		
 		Player player = new Player(result.toUpperCase());
