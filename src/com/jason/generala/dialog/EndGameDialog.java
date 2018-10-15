@@ -38,11 +38,23 @@ public class EndGameDialog {
 		
 		// Ordena los jugadores de mayor puntaje a menor
 		for (int i = 0; i < players.size() - 1; i ++) {
-			if (players.get(i).getTotal() < players.get(i + 1).getTotal()/* ||
-					players.get(i + 1).isForceVictory()*/) {
+			if (players.get(i).getTotal() < players.get(i + 1).getTotal()) {
 				Player tmp = players.get(i);
 				players.set(i, players.get(i + 1));
 				players.set(i + 1, tmp); i = -1;
+			}
+		}
+		
+		// Busca al jugador que ganó por generala servida y los trae
+		// al principio
+		for (int i = 0; i < players.size(); i ++) {
+			if (players.get(i).isForceVictory()) {
+				if (i == 0) break;
+				
+				Player tmp = players.get(i);
+				players.remove(i);
+				players.add(0, tmp);
+				break;
 			}
 		}
 		
